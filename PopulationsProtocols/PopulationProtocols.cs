@@ -1,12 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-/// ==================================================================================================================
-
+﻿/// ==================================================================================================================
+/// Zrobione:
+///     Klasa MyMatrix przeniesiona na tyle na ile byla potrzeba dx
+///     Zaimplementowana metoda Jacobiego (watch?v=bR2SEe8W3Ig)
+///     Zaimplementowana metoda Gaussa-Seidla (watch?v=F6J3ZmXkMj0)
+///     Zaimplementowana metoda eliminacji Gaussa (poprzednie zadanie,)
+/// Co trzeba zrobic:
+///     Najlepiej byloby zrozumiec o co chodzi
+///     Jak uzyc tych metod do obliczenia tych smiesznych prawdopodobienstw
+///     Implementacja metody Monte Carlo
+///     Na pewno jeszcze tysiac zadan
 /// ==================================================================================================================
 namespace PopulationsProtocols
 {
+    #region Usings
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Text;
+    #endregion
     class PopulationProtocols
     {
         public static String CSV_MONTE_CARLO_COPARE_HEADER = "P(Y,N);Monte Carlo;Gauss;Sparse Gauss;Jacobi;Gauss-Seidel";
