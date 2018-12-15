@@ -26,30 +26,6 @@ namespace PopulationsProtocols
         public static String CSV_JACOBI_SEIDEL_ACCURACY_TEST = "N;Error;Jacobi Steps; Jacobi Time;Gauss-Seidel Steps;Gauss Seidel Time";
         static void Main(string[] args)
         {
-            var monteCarloTestNumbers = new MyMatrix(3, 4);
-            monteCarloTestNumbers.addElement(3);
-            monteCarloTestNumbers.addElement(5);
-            monteCarloTestNumbers.addElement(7);
-            monteCarloTestNumbers.addElement(10);
-            var numberTest = new MyMatrix(3, 4);
-            numberTest.addElement(3);
-            numberTest.addElement(5);
-            numberTest.addElement(7);
-            numberTest.addElement(10);
-            numberTest.addElement(15);
-            numberTest.addElement(20);
-            numberTest.addElement(30);
-            numberTest.addElement(40);
-            numberTest.addElement(50);
-
-            List<int> allMethodTest = new LinkedList<>(numberTest);
-            List<double> accuracyRange = new LinkedList<>();
-            accuracyRange.addElement(0.000001);
-            accuracyRange.addElement(0.0000000001);
-            accuracyRange.addElement(0.00000000000001);
-
-            compareAllMethods(allMethodTest);
-            jacobiSeidelAccuracyTest(allMethodTest, accuracyRange);
         }
 
         public void compareGaussEliminationMethod(List<int> numberOfAgents)
@@ -61,10 +37,10 @@ namespace PopulationsProtocols
             {
                 test = new AgentMatrix(n);
                 long t1 = nanoTime();
-                double[] s1 = test.solveMatrix(true);
+                double[] s1 = test.SolveGauss(true);
                 long sparseGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                double[] s2 = test.solveMatrix(false);
+                double[] s2 = test.SolveGauss(false);
                 long normalGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
                 double sum = 0.0;
@@ -84,7 +60,7 @@ namespace PopulationsProtocols
         {
             AgentMatrix test;// = new AgentMatrix(numberOfAgents);
             StringBuilder csvRows = new StringBuilder();
-            long t1, sparseGaussTime, normalGaussTime, jacobiTime, seidelTime;
+            long t1, jacobiTime, seidelTime;
             foreach (int x in agentList)
             {
                 csvRows = new StringBuilder();
@@ -93,11 +69,11 @@ namespace PopulationsProtocols
                 foreach (double n in errorList)
                 {
                     t1 = nanoTime();
-                    test.solveJacobi(n);
+                    test.SolveJacobi(n);
                     jacobiTime = nanoTime() - t1;
                     int jacobiIteration = test.getRecentIterations().i;
                     t1 = nanoTime();
-                    test.solveSeidel(n);
+                    test.SolveSeidel(n);
                     seidelTime = nanoTime() - t1;
                     int seidelIterations = test.getRecentIterations().i;
                     csvRows.Append(x + ";" + n + ";" + jacobiIteration + ";" + jacobiTime + ";" + seidelIterations + ";" + seidelTime + "\n");
@@ -118,17 +94,17 @@ namespace PopulationsProtocols
             {
                 test = new AgentMatrix(n);
                 t1 = nanoTime();
-                test.solveMatrix(true);
+                test.SolveGauss(true);
                 sparseGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                test.solveMatrix(false);
+                test.SolveGauss(false);
                 normalGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                test.solveJacobi(0.00000000000001);
+                test.SolveJacobi(0.00000000000001);
                 jacobiTime = nanoTime() - t1;
                 int jacobiIteration = test.getRecentIterations().i;
                 t1 = nanoTime();
-                test.solveSeidel(0.00000000000001);
+                test.SolveSeidel(0.00000000000001);
                 seidelTime = nanoTime() - t1;
                 int seidelIterations = test.getRecentIterations().i;
                 csvRows.Append(n + ";" + normalGaussTime + ";" + (sparseGaussTime) + ";" + jacobiTime + ";" + seidelTime + ";" + jacobiIteration + ";" + seidelIterations + "\n");
@@ -142,15 +118,15 @@ namespace PopulationsProtocols
             AgentMatrix test = new AgentMatrix(numberOfAgents);
             StringBuilder csvRow = new StringBuilder();
             csvRow.Append(CSV_MONTE_CARLO_COPARE_HEADER + "\n");
-            double[] gaussSeidel = test.solveSeidel(0.00001);
-            double[] jacobi = test.solveJacobi(0.00001);
-            double[] gauss = test.solveMatrix(false);
-            double[] sparseGauss = test.solveMatrix(true);
-            object[] monteCarlo = test.monteCarloSimulation(numberOfSimulations).toArray();
+            double[] gaussSeidel = test.SolveSeidel(0.00001);
+            double[] jacobi = test.SolveJacobi(0.00001);
+            double[] gauss = test.SolveMatrix(false);
+            double[] sparseGauss = test.SolveMatrix(true);
+            object[] monteCarlo = test.MonteCarloSimulation(numberOfSimulations).ToArray();
             for (int i = 0; i < gauss.Length; i++)
             {
-                Node n = test.getNodeList().get(i);
-                csvRow.Append("P(" + n.getY() + "," + n.getN() + ");" + monteCarlo[i] + ";" + gauss[i] + ";" + sparseGauss[i] + ";" + jacobi[i] + ";" + gaussSeidel[i] + "\n");
+                Node n = test.GetNodeList().get(i);
+                csvRow.Append("P(" + n.GetY() + "," + n.GetN() + ");" + monteCarlo[i] + ";" + gauss[i] + ";" + sparseGauss[i] + ";" + jacobi[i] + ";" + gaussSeidel[i] + "\n");
             }
             var filename = "MonteCarlo" + numberOfAgents + "Agents.csv";
             FileOutput.saveResult(filename, csvRow.ToString());// "MonteCarlo"+numberOfAgents+"Agents.csv";
@@ -161,7 +137,6 @@ namespace PopulationsProtocols
         {
             foreach (int x in n) compareToMonteCarlo(x, 1000000);
         }
-
 
         private static long nanoTime()
         {
