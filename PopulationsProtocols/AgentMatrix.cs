@@ -1,5 +1,3 @@
-﻿
-
 namespace PopulationsProtocols
 {
     #region Usings
