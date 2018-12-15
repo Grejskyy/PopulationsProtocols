@@ -94,13 +94,13 @@ namespace PopulationsProtocols
             {
                 test = new AgentMatrix(n);
                 t1 = nanoTime();
-                test.SolveSeidel(true);
+                test.SolveGauss(true);
                 sparseGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                test.SolveSeidel(false);
+                test.SolveGauss(false);
                 normalGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                test.SolveSeidel(0.00000000000001);
+                test.SolveJacobi(0.00000000000001);
                 jacobiTime = nanoTime() - t1;
                 int jacobiIteration = test.getRecentIterations().i;
                 t1 = nanoTime();
