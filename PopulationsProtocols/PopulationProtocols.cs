@@ -4,6 +4,7 @@ namespace PopulationsProtocols
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Text;
     #endregion
     class PopulationProtocols
@@ -15,9 +16,22 @@ namespace PopulationsProtocols
 
         static void Main(string[] args)
         {
+            var MonteCarloAgents = new List<int>();
+            var OtherAgents = new List<int>();
+            var EveryMethod = new List<int>(OtherAgents);
+            var Accuracy = new List<double>();
+            MonteCarloAgents.Add(3);
+            MonteCarloTest(MonteCarloAgents);
+            OtherAgents.Add(3);
+            CompareGaussEliminationMethod(OtherAgents);
+            Accuracy.Add(0.000001);
+            Accuracy.Add(0.0000000001);
+            Accuracy.Add(0.00000000000001);
+            CompareAllMethods(EveryMethod);
+            JacobiSeidelAccuracyTest(EveryMethod, Accuracy);
         }
 
-        public void compareGaussEliminationMethod(List<int> numberOfAgents)
+        public void CompareGaussEliminationMethod(List<int> numberOfAgents)
         {
             AgentMatrix test;// = new AgentMatrix(numberOfAgents);
             StringBuilder csvRows = new StringBuilder();
@@ -42,10 +56,10 @@ namespace PopulationsProtocols
                 Console.WriteLine("Done for " + n);
             }
             var filename = "NormalToSparseGaussComparation.csv";
-            FileOutput.saveResult(filename, csvRows.ToString());
+            SaveResult(filename, csvRows.ToString());
         }
 
-        public void jacobiSeidelAccuracyTest(List<int> agentList, List<Double> errorList)
+        public void JacobiSeidelAccuracyTest(List<int> agentList, List<Double> errorList)
         {
             AgentMatrix test;
             StringBuilder csvRows = new StringBuilder();
@@ -67,11 +81,11 @@ namespace PopulationsProtocols
                     Console.WriteLine("Done for " + x);
                 }
                 var filename = "JacobiSeidelComparing " + x + " Agents.csv";
-                FileOutput.saveResult(filename, csvRows.ToString());
+                SaveResult(filename, csvRows.ToString());
             }
         }
 
-        public void compareAllMethods(List<int> numberOfAgents)
+        public void CompareAllMethods(List<int> numberOfAgents)
         {
             AgentMatrix test;// = new AgentMatrix(numberOfAgents);
             StringBuilder csvRows = new StringBuilder();
@@ -96,9 +110,9 @@ namespace PopulationsProtocols
                 Console.WriteLine("Done for " + n);
             }
             var filename = "AllMethodsCompare.csv";
-            FileOutput.saveResult(filename, csvRows.ToString());
+            SaveResult(filename, csvRows.ToString());
         }
-        public void compareToMonteCarlo(int numberOfAgents, int numberOfSimulations)
+        public void CompareToMonteCarlo(int numberOfAgents, int numberOfSimulations)
         {
             AgentMatrix test = new AgentMatrix(numberOfAgents);
             StringBuilder csvRow = new StringBuilder();
@@ -114,13 +128,13 @@ namespace PopulationsProtocols
                 csvRow.Append("P(" + n.GetY() + "," + n.GetN() + ");" + monteCarlo[i] + ";" + gauss[i] + ";" + sparseGauss[i] + ";" + jacobi[i] + ";" + gaussSeidel[i] + "\n");
             }
             var filename = "MonteCarlo " + numberOfAgents + " Agents.csv";
-            FileOutput.saveResult(filename, csvRow.ToString());
+            SaveResult(filename, csvRow.ToString());
             Console.WriteLine(csvRow.ToString());
         }
 
-        public void monteCarloTest(List<int> n)
+        public void MonteCarloTest(List<int> n)
         {
-            foreach (int x in n) compareToMonteCarlo(x, 1000000);
+            foreach (int x in n) CompareToMonteCarlo(x, 1000000);
         }
 
         private static long nanoTime()
@@ -130,6 +144,11 @@ namespace PopulationsProtocols
             nano *= 100L;
             return nano;
         }
+        public void SaveResult(String filename, String csvRows)
+        {
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            filePath += "\\wyniki\\" + filename + ".csv";
+            File.WriteAllText(filePath, csvRows.ToString());
+        }
     }
 }
-
