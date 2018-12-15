@@ -24,8 +24,21 @@ namespace PopulationsProtocols
         public static String CSV_GAUSS_ELIMINATION_HEADER = "N;Normal Time; Sparse Time; Difference in result";
         public static String CAV_ALL_METHODS_COMPARE_HEADER = "N;Gauss time;Sparse gauss time;Jacobi time; Gauss Seidel Time; Itrations for 10-14 Jacobi; Iterations for 10-14 Seidel";
         public static String CSV_JACOBI_SEIDEL_ACCURACY_TEST = "N;Error;Jacobi Steps; Jacobi Time;Gauss-Seidel Steps;Gauss Seidel Time";
-        static void Main(string[] args)
+        public void runTest()
         {
+            var numberTest = new List<int>();
+            numberTest.Add(3);
+            numberTest.Add(5);
+            numberTest.Add(7);
+            numberTest.Add(10);
+            numberTest.Add(15);
+            numberTest.Add(20);
+            compareGaussEliminationMethod(numberTest);
+        }
+        public static void Main(string[] args)
+        {
+            var x = new PopulationProtocols();
+            x.runTest();
         }
 
         public void compareGaussEliminationMethod(List<int> numberOfAgents)
@@ -53,7 +66,9 @@ namespace PopulationsProtocols
                 Console.WriteLine("Done for " + n);
             }
             var filename = "1GaussComparation.csv";
-            FileOutput.saveResult(filename, csvRows.ToString());
+            Console.WriteLine(csvRows.ToString());
+            Console.ReadKey();
+            //FileOutput.saveResult(filename, csvRows.ToString());
         }
 
         public void jacobiSeidelAccuracyTest(List<int> agentList, List<Double> errorList)
@@ -78,7 +93,7 @@ namespace PopulationsProtocols
                     Console.WriteLine("Done for " + x);
                 }
                 var filename = "JacobiSeidelCompare" + x + "Agents.csv";
-                FileOutput.saveResult(filename, csvRows.ToString());
+               // FileOutput.saveResult(filename, csvRows.ToString());
             }
         }
 
@@ -107,7 +122,7 @@ namespace PopulationsProtocols
                 Console.WriteLine("Done for " + n);
             }
             var filename = "1AllMethodsCompare.csv";
-            FileOutput.saveResult(filename, csvRows.ToString());
+           // FileOutput.saveResult(filename, csvRows.ToString());
         }
         public void compareToMonteCarlo(int numberOfAgents, int numberOfSimulations)
         {
@@ -125,7 +140,7 @@ namespace PopulationsProtocols
                 csvRow.Append("P(" + n.GetY() + "," + n.GetN() + ");" + monteCarlo[i] + ";" + gauss[i] + ";" + sparseGauss[i] + ";" + jacobi[i] + ";" + gaussSeidel[i] + "\n");
             }
             var filename = "MonteCarlo" + numberOfAgents + "Agents.csv";
-            FileOutput.saveResult(filename, csvRow.ToString());// "MonteCarlo"+numberOfAgents+"Agents.csv";
+           // FileOutput.saveResult(filename, csvRow.ToString());// "MonteCarlo"+numberOfAgents+"Agents.csv";
             Console.WriteLine(csvRow.ToString());
         }
 

@@ -25,6 +25,7 @@
         {
             _cols = cols;
             _rows = rows;
+            for (int i = 0; i < _rows * _cols; i++) _data.Add(0);
         }
 
         public MyMatrix(MyMatrix m)
