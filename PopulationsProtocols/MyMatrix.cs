@@ -55,6 +55,10 @@
             get { return _cols; }
             set { _cols = value; }
         }
+        public bool IsZero(int x, int y)
+        {
+            return this[x, y] == 0;
+        }
 
         public void Copy(MyMatrix m)
         {
@@ -82,7 +86,7 @@
             set { _data[_cols * row + col] = value; }
         }
 
-        public List<double> Gauss()
+        public List<double> Gauss(bool sparse)
         {
             var temp = new MyMatrix(this);
             double div = 0;
@@ -104,6 +108,7 @@
                 }
                 for(int i = n+1; i < _rows; i++)
                 {
+                    if (this.IsZero(i, n) && sparse) continue;
                     div = temp[i, n] / temp[n, n];
                     for(int j = n; j < _cols; j++)
                     {

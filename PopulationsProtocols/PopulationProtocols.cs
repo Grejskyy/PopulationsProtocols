@@ -37,18 +37,18 @@ namespace PopulationsProtocols
             {
                 test = new AgentMatrix(n);
                 long t1 = nanoTime();
-                double[] s1 = test.SolveGauss(true);
+                var s1 = test.SolveGauss(true);
                 long sparseGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                double[] s2 = test.SolveGauss(false);
+                var s2 = test.SolveGauss(false);
                 long normalGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
                 double sum = 0.0;
-                for (int i = 0; i < s1.Length; i++)
+                for (int i = 0; i < s1.Count; i++)
                 {
                     sum += s1[i] - s2[i];
                 }
-                sum /= s1.Length;
+                sum /= s1.Count;
                 csvRows.Append(n + ";" + (normalGaussTime) + ";" + (sparseGaussTime) + ";" + sum + "\n");
                 Console.WriteLine("Done for " + n);
             }
@@ -69,14 +69,12 @@ namespace PopulationsProtocols
                 foreach (double n in errorList)
                 {
                     t1 = nanoTime();
-                    test.SolveJacobi(n);
+                    test.SolveJacobi();
                     jacobiTime = nanoTime() - t1;
-                    int jacobiIteration = test.getRecentIterations().i;
                     t1 = nanoTime();
-                    test.SolveSeidel(n);
+                    test.SolveSeidel();
                     seidelTime = nanoTime() - t1;
-                    int seidelIterations = test.getRecentIterations().i;
-                    csvRows.Append(x + ";" + n + ";" + jacobiIteration + ";" + jacobiTime + ";" + seidelIterations + ";" + seidelTime + "\n");
+                    csvRows.Append(x + ";" + n + ";" + jacobiTime + ";" + seidelTime + "\n");
                     Console.WriteLine("Done for " + x);
                 }
                 var filename = "JacobiSeidelCompare" + x + "Agents.csv";
@@ -100,14 +98,12 @@ namespace PopulationsProtocols
                 test.SolveGauss(false);
                 normalGaussTime = nanoTime() - t1;
                 t1 = nanoTime();
-                test.SolveJacobi(0.00000000000001);
+                test.SolveJacobi();
                 jacobiTime = nanoTime() - t1;
-                int jacobiIteration = test.getRecentIterations().i;
                 t1 = nanoTime();
-                test.SolveSeidel(0.00000000000001);
+                test.SolveSeidel();
                 seidelTime = nanoTime() - t1;
-                int seidelIterations = test.getRecentIterations().i;
-                csvRows.Append(n + ";" + normalGaussTime + ";" + (sparseGaussTime) + ";" + jacobiTime + ";" + seidelTime + ";" + jacobiIteration + ";" + seidelIterations + "\n");
+                csvRows.Append(n + ";" + normalGaussTime + ";" + (sparseGaussTime) + ";" + jacobiTime + ";" + seidelTime);
                 Console.WriteLine("Done for " + n);
             }
             var filename = "1AllMethodsCompare.csv";
@@ -118,14 +114,14 @@ namespace PopulationsProtocols
             AgentMatrix test = new AgentMatrix(numberOfAgents);
             StringBuilder csvRow = new StringBuilder();
             csvRow.Append(CSV_MONTE_CARLO_COPARE_HEADER + "\n");
-            double[] gaussSeidel = test.SolveSeidel(0.00001);
-            double[] jacobi = test.SolveJacobi(0.00001);
-            double[] gauss = test.SolveMatrix(false);
-            double[] sparseGauss = test.SolveMatrix(true);
-            object[] monteCarlo = test.MonteCarloSimulation(numberOfSimulations).ToArray();
-            for (int i = 0; i < gauss.Length; i++)
+            var gaussSeidel = test.SolveSeidel();
+            var jacobi = test.SolveJacobi();
+            var gauss = test.SolveGauss(false);
+            var sparseGauss = test.SolveGauss(true);
+            var monteCarlo = test.MonteCarloSimulation(numberOfSimulations).ToArray();
+            for (int i = 0; i < gauss.Count; i++)
             {
-                Node n = test.GetNodeList().get(i);
+                Node n = test.GetNodeList()[i];
                 csvRow.Append("P(" + n.GetY() + "," + n.GetN() + ");" + monteCarlo[i] + ";" + gauss[i] + ";" + sparseGauss[i] + ";" + jacobi[i] + ";" + gaussSeidel[i] + "\n");
             }
             var filename = "MonteCarlo" + numberOfAgents + "Agents.csv";

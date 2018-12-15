@@ -49,12 +49,12 @@ namespace PopulationsProtocols
             }
             return result;
         }
-        public List<double> SolveGauss()
+        public List<double> SolveGauss(bool sparse)
         {
             var tempMatrix = new MyMatrix(matrixOfAgents);
             var tempVector = new MyMatrix(vectorMatrix.GetColumn(0));
             var joinedMatrix = new MyMatrix(JoinMatrix(tempMatrix, tempVector));
-            var values = joinedMatrix.Gauss();
+            var values = joinedMatrix.Gauss(sparse);
             return values;
         }
         public List<double> SolveJacobi()
