@@ -55,12 +55,25 @@
             get { return _cols; }
             set { _cols = value; }
         }
+        public bool IsZero(int x, int y)
+        {
+            return this[x, y] == 0;
+        }
 
         public void Copy(MyMatrix m)
         {
             _rows = m.Rows;
             _cols = m.Cols;
             for (int i = 0; i < _rows * _cols; i++) this[0,i] = m[0, i];
+        }
+        public MyMatrix GetColumn(int column)
+        {
+            var result = new MyMatrix(_rows,1);
+            for(int i = 0; i < _rows; i++)
+            {
+                result[i,0] = this[i, column];
+            }
+            return result;
         }
         public void addElement(double element)
         {
@@ -73,10 +86,9 @@
             set { _data[_cols * row + col] = value; }
         }
 
-        public List<double> Gauss()
+        public List<double> Gauss(bool sparse)
         {
             var temp = new MyMatrix(this);
-            //for (int i = 0; i < _rows * _cols; i++) Console.WriteLine(temp[0, i] == this[0, i]);
             double div = 0;
             int hlp = 0;
             for(int n = 0; n < _rows; n++)
@@ -96,6 +108,7 @@
                 }
                 for(int i = n+1; i < _rows; i++)
                 {
+                    if (this.IsZero(i, n) && sparse) continue;
                     div = temp[i, n] / temp[n, n];
                     for(int j = n; j < _cols; j++)
                     {
@@ -146,7 +159,7 @@
             }
             return xvalues;
         }
-        public List<double> Gauss_Seidel()
+        public List<double>Seidel()
         {
             List<double> xvalues = new List<double>();
             for (int i = _rows; i > 0; i--)

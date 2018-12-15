@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AgentMatrix.cs" />
     <Compile Include="MyMatrix.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="PopulationProtocols.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
