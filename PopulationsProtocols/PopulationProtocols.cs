@@ -3,7 +3,7 @@
 ///     Klasa MyMatrix przeniesiona na tyle na ile byla potrzeba dx
 ///     Zaimplementowana metoda Jacobiego (watch?v=bR2SEe8W3Ig)
 ///     Zaimplementowana metoda Gaussa-Seidla (watch?v=F6J3ZmXkMj0)
-///     Zaimplementowana metoda eliminacji Gaussa (poprzednie zadanie, https://eduinf.waw.pl/inf/alg/001_search/0076.php)
+///     Zaimplementowana metoda eliminacji Gaussa (poprzednie zadanie,)
 /// Co trzeba zrobic:
 ///     Najlepiej byloby zrozumiec o co chodzi
 ///     Jak uzyc tych metod do obliczenia tych smiesznych prawdopodobienstw
@@ -34,7 +34,7 @@ namespace PopulationsProtocols
             m.addElement(4);
             m.addElement(6);
             var x = m.Jacobi();
-            var y = m.Gauss_Seidel();
+            var y = m.Seidel();
             for(int i = 0; i < m.Rows; i++) Console.WriteLine(x[i]);
             Console.WriteLine("\n");
             for (int i = 0; i < m.Rows; i++) Console.WriteLine(y[i]);

@@ -62,6 +62,15 @@
             _cols = m.Cols;
             for (int i = 0; i < _rows * _cols; i++) this[0,i] = m[0, i];
         }
+        public MyMatrix GetColumn(int column)
+        {
+            var result = new MyMatrix(_rows,1);
+            for(int i = 0; i < _rows; i++)
+            {
+                result[i,0] = this[i, column];
+            }
+            return result;
+        }
         public void addElement(double element)
         {
             _data.Add(element);
@@ -76,7 +85,6 @@
         public List<double> Gauss()
         {
             var temp = new MyMatrix(this);
-            //for (int i = 0; i < _rows * _cols; i++) Console.WriteLine(temp[0, i] == this[0, i]);
             double div = 0;
             int hlp = 0;
             for(int n = 0; n < _rows; n++)
@@ -146,7 +154,7 @@
             }
             return xvalues;
         }
-        public List<double> Gauss_Seidel()
+        public List<double>Seidel()
         {
             List<double> xvalues = new List<double>();
             for (int i = _rows; i > 0; i--)
