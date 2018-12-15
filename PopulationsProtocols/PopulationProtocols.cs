@@ -16,19 +16,20 @@ namespace PopulationsProtocols
 
         static void Main(string[] args)
         {
+            var p = new PopulationProtocols();
             var MonteCarloAgents = new List<int>();
             var OtherAgents = new List<int>();
             var EveryMethod = new List<int>(OtherAgents);
             var Accuracy = new List<double>();
             MonteCarloAgents.Add(3);
-            MonteCarloTest(MonteCarloAgents);
+            p.MonteCarloTest(MonteCarloAgents);
             OtherAgents.Add(3);
-            CompareGaussEliminationMethod(OtherAgents);
+            p.CompareGaussEliminationMethod(OtherAgents);
             Accuracy.Add(0.000001);
             Accuracy.Add(0.0000000001);
             Accuracy.Add(0.00000000000001);
-            CompareAllMethods(EveryMethod);
-            JacobiSeidelAccuracyTest(EveryMethod, Accuracy);
+            p.CompareAllMethods(EveryMethod);
+            p.JacobiSeidelAccuracyTest(EveryMethod, Accuracy);
         }
 
         public void CompareGaussEliminationMethod(List<int> numberOfAgents)
