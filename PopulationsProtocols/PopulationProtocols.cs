@@ -38,7 +38,7 @@ namespace PopulationsProtocols
                     sum += s1[i] - s2[i];
                 }
                 sum /= s1.Count;
-                csvRows.Append(n + ";" + (normalGaussTime) + ";" + (sparseGaussTime) + ";" + sum + "\n");
+                csvRows.Append(n + ";" + normalGaussTime + ";" + sparseGaussTime + ";" + sum + "\n");
                 Console.WriteLine("Done for " + n);
             }
             var filename = "NormalToSparseGaussComparation.csv";
