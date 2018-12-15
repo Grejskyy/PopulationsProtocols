@@ -22,7 +22,7 @@ namespace PopulationsProtocols
             this.U = U;
         }
         public int getNumberOfAgents() {
-        return Y + N + U;
+            return Y + N + U;
         }
         public String getRandomPair() {
             String pair = "";
@@ -57,13 +57,13 @@ namespace PopulationsProtocols
             return pair;
         }
         public void changeAgentsState(String pair) {
-            if(pair.equals(YU_PAIR)) {
+            if(pair.Equals(YU_PAIR)) {
                 U -= 1;
                 Y += 1;
-            } else if(pair.equals(NU_PAIR)) {
+            } else if(pair.Equals(NU_PAIR)) {
                 U -= 1;
                 N += 1;
-            } else if(pair.equals(YN_PAIR)) {
+            } else if(pair.Equals(YN_PAIR)) {
                 U += 2;
                 N -= 1;
                 Y -= 1;
