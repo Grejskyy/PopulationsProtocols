@@ -5,7 +5,7 @@ namespace PopulationsProtocols
     #endregion
     class IterativeMethodMatrix
     {
-        public static double[] solveJacobi(double[][] matrix, double[] vector, double precision) {
+        public static double[] solveJacobi(double[,] matrix, double[] vector, double precision) {
             int iterations = 0;
             int size = matrix.Length;
             double[,] M = new double[size,size];
@@ -14,14 +14,14 @@ namespace PopulationsProtocols
             double[] persistedX = new double[size];
 
             for (int i=0; i<size; i++) {
-                reversedMatrix[i] = 1 / matrix[i][i];
+                reversedMatrix[i] = 1 / matrix[i,i];
             }
             for (int i=0; i<size; i++) {
                 for (int j = 0; j < size; j++) {
                     if (i == j) {
-                        M[i][j] = 0.0;
+                        M[i,j] = 0.0;
                     } else {
-                        M[i][j] = -(matrix[i][j] * reversedMatrix[i]);
+                        M[i,j] = -(matrix[i,j] * reversedMatrix[i]);
                     }
                 }
             }
@@ -32,7 +32,7 @@ namespace PopulationsProtocols
                 for (int i = 0; i < size; i++) {
                     persistedX[i] = reversedMatrix[i] * vector[i];
                     for (int j = 0; j < size; j++) {
-                        persistedX[i] += M[i][j] * result[j];
+                        persistedX[i] += M[i,j] * result[j];
                     }
                 }
                 if(precisionReached(result, persistedX, precision)) break;
@@ -42,7 +42,7 @@ namespace PopulationsProtocols
             return result;
         }
 
-        public static double[] solveGaussSeidel(double[][] matrix, double[] vector, double precision) {
+        public static double[] solveGaussSeidel(double[,] matrix, double[] vector, double precision) {
             int iterations = 0;
             int size = matrix.Length;
             double[,] reversedMatrix = new double[size,size];
@@ -57,27 +57,27 @@ namespace PopulationsProtocols
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     if (i < j) {
-                        upper[i][j] = matrix[i][j];
+                        upper[i,j] = matrix[i,j];
                     }
                     else if(i > j) {
-                        lower[i][j] = matrix[i][j];
+                        lower[i,j] = matrix[i,j];
                     }
                     else {
-                        reversedMatrix[i][j] = 1 / matrix[i][j];
+                        reversedMatrix[i,j] = 1 / matrix[i,j];
                     }
                 }
             }
             for (int i = 0; i < size; i++) {
-                vector[i] *= reversedMatrix[i][i];
+                vector[i] *= reversedMatrix[i,i];
             }
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < i; j++) {
-                    lower[i][j] *= reversedMatrix[i][i];
+                    lower[i,j] *= reversedMatrix[i,i];
                 }
             }
             for (int i = 0; i < size; i++) {
                 for (int j = i + 1; j < size; j++) {
-                    upper[i][j] *= reversedMatrix[i][i];
+                    upper[i,j] *= reversedMatrix[i,i];
                 }
             }        
 
@@ -86,10 +86,10 @@ namespace PopulationsProtocols
                 for (int i = 0; i < size; i++) {
                     result[i] = vector[i];
                     for (int j = 0; j < i; j++) {
-                        result[i] -= lower[i][j] * result[j];
+                        result[i] -= lower[i,j] * result[j];
                     }
                     for (int j = i + 1; j < size; j++) {
-                        result[i] -= upper[i][j] * result[j];
+                        result[i] -= upper[i,j] * result[j];
                     }
                 }
                 if(iterations!=0 && precisionReached(persistedX, result, precision)) break;
@@ -100,12 +100,12 @@ namespace PopulationsProtocols
 
         private static bool precisionReached(double[] comparedValues, double[] values, double precision) {
             double sum = 0.0;
-            for(int i=0;i<values.length;i++){
+            for(int i=0;i<values.Length;i++){
                 double value = values[i];
                 double value2 = comparedValues[i];
-                if(value != 0) sum += Math.abs((value-value2)/value);
+                if(value != 0) sum += Math.Abs((value-value2)/value);
             }
-            sum /= values.length;
+            sum /= values.Length;
             return !(sum > precision);
         }
     }
