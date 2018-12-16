@@ -22,9 +22,8 @@ namespace PopulationsProtocols
             SolveMatrix.BackwardSubstitution();
             return SolveMatrix.matrix;
         }
-        protected GaussPartPivot(MyMatrix matrix, MyMatrix vector)
+        protected GaussPartPivot(MyMatrix matrix, MyMatrix vector) : base(matrix, vector);
         {
-            base.GaussElimination(matrix, vector);
         }
 
         protected void CreateUpperTriangularMatrix()
