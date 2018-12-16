@@ -30,7 +30,7 @@ namespace PopulationsProtocols
             this.possibilityDivider = numberOfAgents * (numberOfAgents - 1) / 2;
 
             FillRows();
-            this.matrixOfAgents.Copy(ValuesAsObject());
+            this.matrixOfAgents = new MyMatrix(ValuesAsObject());
             FillVector();
         }
         #endregion
@@ -115,9 +115,7 @@ namespace PopulationsProtocols
         public Node GetNode(int Y, int N)
         {
             Node preset = nodes
-                .Where(x => x.GetY() == Y)
-                .Where(x => x.GetN() == N)
-                .First();
+                .FirstOrDefault(node => node.GetY() == Y && node.GetN() == N);
             return preset;
         }
 
@@ -216,7 +214,7 @@ namespace PopulationsProtocols
                 if (nodes[i].GetY() == numberOfAgents) vector[i, 0] = 1;
                 else vector[i, 0] = 0;
             }
-            vectorMatrix.Copy(vector);
+            vectorMatrix = new MyMatrix(vector);
             for (int i = 0; i < matrixSize; i++)
             {
                 if (nodes[i].GetN() != numberOfAgents

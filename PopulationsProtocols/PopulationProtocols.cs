@@ -13,23 +13,21 @@ namespace PopulationsProtocols
         public static String JacobiAndSeidel_Compare = "N;Error;Jacobi Steps; Jacobi Time;Gauss-Seidel Steps;Gauss Seidel Time";
         public static String AllMethods_Compare = "N;Gauss time;Sparse gauss time;Jacobi time;";
         public static String MonteCarlo_Equations = "P(Y,N);Monte Carlo;Gauss;Sparse Gauss;Jacobi;Seidel";
-
-        static void Main(string[] args)
+        public void runTest()
         {
-            var p = new PopulationProtocols();
-            var MonteCarloAgents = new List<int>();
-            var OtherAgents = new List<int>();
-            var EveryMethod = new List<int>(OtherAgents);
-            var Accuracy = new List<double>();
-            MonteCarloAgents.Add(3);
-            p.MonteCarloTest(MonteCarloAgents);
-            OtherAgents.Add(3);
-            p.CompareGaussEliminationMethod(OtherAgents);
-            Accuracy.Add(0.000001);
-            Accuracy.Add(0.0000000001);
-            Accuracy.Add(0.00000000000001);
-            p.CompareAllMethods(EveryMethod);
-            p.JacobiSeidelAccuracyTest(EveryMethod, Accuracy);
+            var numberTest = new List<int>();
+            numberTest.Add(3);
+            numberTest.Add(5);
+            numberTest.Add(7);
+            numberTest.Add(10);
+            numberTest.Add(15);
+            numberTest.Add(20);
+            compareGaussEliminationMethod(numberTest);
+        }
+        public static void Main(string[] args)
+        {
+            var x = new PopulationProtocols();
+            x.runTest();
         }
 
         public void CompareGaussEliminationMethod(List<int> numberOfAgents)
@@ -130,6 +128,7 @@ namespace PopulationsProtocols
             }
             var filename = "MonteCarlo " + numberOfAgents + " Agents.csv";
             SaveResult(filename, csvRow.ToString());
+
             Console.WriteLine(csvRow.ToString());
         }
 
