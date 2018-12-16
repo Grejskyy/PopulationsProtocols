@@ -50,5 +50,17 @@ namespace PopulationsProtocols
             }
         }
     }
+    private double divide(double first, double second)
+        {
+            if (first instanceof Double)      return (Double)(((Double)first) / ((Double)second));
+        }
+        private double multiply(double first, double second)
+        {
+            if (first instanceof Double)      return (Double)(((Double)first) * ((Double)second));
+        }
+        private double subtract(double first, double second)
+        {
+            if (first instanceof Double)      return (Double)(((Double)first) - ((Double)second));
+        }
     }
 }
