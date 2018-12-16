@@ -5,7 +5,7 @@ namespace PopulationsProtocols
     #endregion
     class IterativeMethodMatrix
     {
-        public static double[] solveJacobi(double[,] matrix, double[] vector, double precision) {
+        public static double[] SolveJacobi(double[,] matrix, double[] vector, double precision) {
             int iterations = 0;
             int size = matrix.Length;
             double[,] M = new double[size,size];
@@ -42,7 +42,7 @@ namespace PopulationsProtocols
             return result;
         }
 
-        public static double[] solveGaussSeidel(double[,] matrix, double[] vector, double precision) {
+        public static double[] SolveGaussSeidel(double[,] matrix, double[] vector, double precision) {
             int iterations = 0;
             int size = matrix.Length;
             double[,] reversedMatrix = new double[size,size];
@@ -92,13 +92,13 @@ namespace PopulationsProtocols
                         result[i] -= upper[i,j] * result[j];
                     }
                 }
-                if(iterations!=0 && precisionReached(persistedX, result, precision)) break;
+                if(iterations!=0 && PrecisionReached(persistedX, result, precision)) break;
                 iterations++;
             }
             return result;
         }
 
-        private static bool precisionReached(double[] comparedValues, double[] values, double precision) {
+        private static bool PrecisionReached(double[] comparedValues, double[] values, double precision) {
             double sum = 0.0;
             for(int i=0;i<values.Length;i++){
                 double value = values[i];
