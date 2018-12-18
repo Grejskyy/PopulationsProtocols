@@ -12,12 +12,13 @@ namespace PopulationsProtocols
         public MyMatrix vector;
         public int matrixSize;
 
-        public GaussElimination(MyMatrix matrix, MyMatrix vector)
+        public GaussElimination(MyMatrix mmatrix, MyMatrix vvector)
         {
-            this.matrix = matrix;
+            this.matrix.Copy(mmatrix);
             matrixSize = matrix.GetSize();
-            this.vector = vector;
-    }
+            this.vector.Copy(vvector);
+        }
+
         public void NullifyDownOfColumn(int column, bool sparse)
         {
             for (int row = column + 1; row < matrixSize; row++)
@@ -36,8 +37,8 @@ namespace PopulationsProtocols
         {
             for (int rowElement = column; rowElement < matrixSize; rowElement++)
             {
-                double newMatrixValue = matrix[row,rowElement] - (matrix[column,rowElement] * factor);
-                matrix[row,rowElement] = newMatrixValue;
+                double newmatrixValue = matrix[row,rowElement] - (matrix[column,rowElement] * factor);
+                matrix[row,rowElement] = newmatrixValue;
 
             }
         }

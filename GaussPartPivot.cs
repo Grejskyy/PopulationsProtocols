@@ -10,22 +10,22 @@ namespace PopulationsProtocols
     {
         public static MyMatrix GaussElimination(MyMatrix matrix, MyMatrix vector)
         {
-            GaussElimination SolveMatrix = new GaussElimination(matrix, vector);
-            SolveMatrix.BackwardSubstitution();
-            return SolveMatrix.matrix;
+            GaussElimination Solvematrix = new GaussElimination(matrix, vector);
+            Solvematrix.BackwardSubstitution();
+            return Solvematrix.matrix;
         }
         public static MyMatrix GaussElimination(MyMatrix matrix, MyMatrix vector, bool sparse)
         {
-            GaussPartPivot SolveMatrix = new GaussPartPivot(matrix, vector);
-            SolveMatrix.CreateUpperTriangularMatrix(sparse);
-            SolveMatrix.BackwardSubstitution();
-            return SolveMatrix.matrix;
+            GaussPartPivot Solvematrix = new GaussPartPivot(matrix, vector);
+            Solvematrix.CreateUpperTriangularmatrix(sparse);
+            Solvematrix.BackwardSubstitution();
+            return Solvematrix.matrix;
         }
         protected GaussPartPivot(MyMatrix matrix, MyMatrix vector) : base(matrix, vector)
         {
         }
 
-        protected void CreateUpperTriangularMatrix()
+        protected void CreateUpperTriangularmatrix()
         {
             for (int column = 0; column < matrixSize; column++)
             {
@@ -34,7 +34,7 @@ namespace PopulationsProtocols
             }
         }
 
-        protected void CreateUpperTriangularMatrix(bool sparse)
+        protected void CreateUpperTriangularmatrix(bool sparse)
         {
             for (int column = 0; column < matrixSize; column++)
             {
@@ -55,8 +55,11 @@ namespace PopulationsProtocols
                     maxValue = matrix[i, column];
                 }
             }
-            matrix.SwapRows(maxIndex, column);
-            vector.SwapRows(maxIndex, column);
+            if (column != maxIndex)
+            {
+                matrix.SwapRows(maxIndex, column);
+                vector.SwapRows(maxIndex, column);
+            }
         }
     }
 }
