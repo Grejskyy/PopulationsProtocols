@@ -75,7 +75,6 @@
                 this[second, i] = temp[0, i];
             }
         }
-
         public void Copy(MyMatrix m)
         {
             _rows = m.Rows;
