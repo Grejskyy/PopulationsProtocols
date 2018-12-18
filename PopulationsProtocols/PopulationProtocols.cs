@@ -13,21 +13,18 @@ namespace PopulationsProtocols
         public static String JacobiAndSeidel_Compare = "N;Error;Jacobi Steps; Jacobi Time;Gauss-Seidel Steps;Gauss Seidel Time";
         public static String AllMethods_Compare = "N;Gauss time;Sparse gauss time;Jacobi time;";
         public static String MonteCarlo_Equations = "P(Y,N);Monte Carlo;Gauss;Sparse Gauss;Jacobi;Seidel";
-        public void runTest()
+        public void RunTest()
         {
             var numberTest = new List<int>();
-            numberTest.Add(3);
-            numberTest.Add(5);
-            numberTest.Add(7);
-            numberTest.Add(10);
-            numberTest.Add(15);
-            numberTest.Add(20);
-            compareGaussEliminationMethod(numberTest);
+
+            CompareToMonteCarlo(3, 10000);
+            Console.ReadLine();
+        
         }
         public static void Main(string[] args)
         {
             var x = new PopulationProtocols();
-            x.runTest();
+            x.RunTest();
         }
 
         public void CompareGaussEliminationMethod(List<int> numberOfAgents)
@@ -147,7 +144,7 @@ namespace PopulationsProtocols
         public void SaveResult(String filename, String csvRows)
         {
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            filePath += "\\wyniki\\" + filename + ".csv";
+            filePath += "\\" + filename + ".csv";
             File.WriteAllText(filePath, csvRows.ToString());
         }
     }

@@ -54,8 +54,10 @@ namespace PopulationsProtocols
             var tempMatrix = new MyMatrix(matrixOfAgents);
             var tempVector = new MyMatrix(vectorMatrix.GetColumn(0));
             var joinedMatrix = new MyMatrix(JoinMatrix(tempMatrix, tempVector));
-            var values = joinedMatrix.Gauss(sparse);
-            return values;
+            var values = GaussPartPivot.GaussElimination(tempMatrix, tempVector, sparse);
+            List<double> returnValues = MyMatrix.GetColumnAsList(values, 0);
+            return returnValues;
+            //var values = joinedMatrix.Gauss(sparse);
         }
         public List<double> SolveJacobi()
         {
