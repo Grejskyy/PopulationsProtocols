@@ -62,17 +62,17 @@
         }
 
         public int GetSize() {
-            return _data.Count;
+            return _rows;
         }
 
         public void SwapRows(int first, int second)
         {
             var temp = new MyMatrix(1, _rows);
-            temp = GetRow(first);
+            temp = this.GetRow(first);
             for (int i = 0; i < this.Cols; i++)
             {
                 this[first, i] = this[second, i];
-                this[second, i] = temp[1, i];
+                this[second, i] = temp[0, i];
             }
         }
 
@@ -94,10 +94,20 @@
 
         public MyMatrix GetRow(int row)
         {
-            var result = new MyMatrix(_cols, 1);
+            var result = new MyMatrix(1, _cols);
             for (int i = 0; i < _cols; i++)
             {
-                result[i, 0] = this[i, row];
+                result[0, i] = this[row, i];
+            }
+            return result;
+        }
+
+        static public List<double> GetColumnAsList(MyMatrix m, int column)
+        {
+            List<double> result = new List<double>();
+            for (int i = 0; i < m._rows; i++)
+            {
+                result.Add(m[i, column]);
             }
             return result;
         }
