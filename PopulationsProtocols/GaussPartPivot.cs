@@ -8,12 +8,6 @@ namespace PopulationsProtocols
 {
     class GaussPartPivot : GaussElimination
     {
-        public static MyMatrix GaussElimination(MyMatrix matrix, MyMatrix vector)
-        {
-            GaussElimination Solvematrix = new GaussElimination(matrix, vector);
-            Solvematrix.BackwardSubstitution();
-            return Solvematrix.matrix;
-        }
         public static MyMatrix GaussElimination(MyMatrix matrix, MyMatrix vector, bool sparse)
         {
             GaussPartPivot Solvematrix = new GaussPartPivot(matrix, vector);
