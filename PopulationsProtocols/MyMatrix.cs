@@ -6,7 +6,7 @@
     using System;
 
     using System.Collections.Generic;
-    
+
     #endregion
 
     class MyMatrix
@@ -32,7 +32,7 @@
         {
             _cols = m.Cols;
             _rows = m.Rows;
-            for (int i = 0; i < _rows * _cols; i++) _data.Add(m[0, i]);           
+            for (int i = 0; i < _rows * _cols; i++) _data.Add(m[0, i]);
         }
 
         #endregion
@@ -61,6 +61,21 @@
             return this[x, y] == 0;
         }
 
+        public int GetSize() {
+            return _data.Count;
+        }
+
+        public void SwapRows(int first, int second)
+        {
+            var temp = new MyMatrix(1, _rows);
+            temp = GetRow(first);
+            for (int i = 0; i < this.Cols; i++)
+            {
+                this[first, i] = this[second, i];
+                this[second, i] = temp[1, i];
+            }
+        }
+
         public void Copy(MyMatrix m)
         {
             _rows = m.Rows;
@@ -76,6 +91,17 @@
             }
             return result;
         }
+
+        public MyMatrix GetRow(int row)
+        {
+            var result = new MyMatrix(_cols, 1);
+            for (int i = 0; i < _cols; i++)
+            {
+                result[i, 0] = this[i, row];
+            }
+            return result;
+        }
+
         public void addElement(double element)
         {
             _data.Add(element);
