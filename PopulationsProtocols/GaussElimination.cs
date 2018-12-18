@@ -14,9 +14,9 @@ namespace PopulationsProtocols
 
         public GaussElimination(MyMatrix mmatrix, MyMatrix vvector)
         {
-            this.matrix.Copy(mmatrix);
+            this.matrix = mmatrix;
             matrixSize = matrix.GetSize();
-            this.vector.Copy(vvector);
+            this.vector = vvector;
         }
 
         public void NullifyDownOfColumn(int column, bool sparse)

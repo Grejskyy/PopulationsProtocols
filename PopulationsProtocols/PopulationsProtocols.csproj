@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentMatrix.cs" />
+    <Compile Include="GaussElimination.cs" />
+    <Compile Include="GaussPartPivot.cs" />
+    <Compile Include="IterativeMethodMatrix.cs" />
     <Compile Include="MyMatrix.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="PopulationProtocols.cs" />
