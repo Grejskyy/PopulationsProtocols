@@ -24,14 +24,13 @@ namespace PopulationsProtocols
             this.numberOfAgents = n;
             this.nodes = new List<Node>();
             this.recentIterations = 0;
-            CreateNodes();
+            this.CreateNodes();
             this.matrixSize = nodes.Count();
             this.values = new double[matrixSize, matrixSize];
             this.possibilityDivider = numberOfAgents * (numberOfAgents - 1) / 2;
-
-            FillRows();
+            this.FillRows();
             this.matrixOfAgents = new MyMatrix(ValuesAsObject());
-            FillVector();
+            this.FillVector();
         }
         #endregion
 
@@ -48,16 +47,13 @@ namespace PopulationsProtocols
                 result[i, left.Cols] = right[i, 0];
             }
             return result;
-        }
         public List<double> SolveGauss(bool sparse)
         {
             var tempMatrix = new MyMatrix(matrixOfAgents);
             var tempVector = new MyMatrix(vectorMatrix.GetColumn(0));
             var joinedMatrix = new MyMatrix(JoinMatrix(tempMatrix, tempVector));
-            var values = GaussPartPivot.GaussElimination(tempMatrix, tempVector, sparse);
-            List<double> returnValues = MyMatrix.GetColumnAsList(values, 0);
-            return returnValues;
-            //var values = joinedMatrix.Gauss(sparse);
+            var values = joinedMatrix.Gauss(sparse);
+            return values;
         }
         public List<double> SolveJacobi()
         {
@@ -99,10 +95,10 @@ namespace PopulationsProtocols
             int Y = rowNode.GetY();
             int N = rowNode.GetN();
             int U = rowNode.GetU();
-            double noChangePossibility = ((double)(PossibleCombinations(Y, 2) + PossibleCombinations(N, 2))) / possibilityDivider;
-            double uChangePossibility = ((double)(Y * N)) / possibilityDivider;
-            double nChangePossibility = ((double)(U * N)) / possibilityDivider;
-            double yChangePossibility = ((double)(Y * U)) / possibilityDivider;
+            double noChangePossibility = ((double)(PossibleCombinations(Y, 2) + PossibleCombinations(N, 2) + PossibleCombinations(U, 2))) / possibilityDivider;
+            double uChangePossibility = (double)Y * N / possibilityDivider;
+            double nChangePossibility = (double)U * N / possibilityDivider;
+            double yChangePossibility = (double)Y * U / possibilityDivider;
             int noChangeNodeIndex = GetNodeIndex(Y, N);
             int uChangeNodeIndex = GetNodeIndex(Y - 1, N - 1);
             int nChangeNodeIndex = GetNodeIndex(Y, N + 1);
@@ -192,8 +188,7 @@ namespace PopulationsProtocols
         private int GetNodeIndex(int Y, int N)
         {
             Node n = GetNode(Y, N);
-            if (n != null) return nodes.IndexOf(n);
-            else return -1;
+            return n != null ? nodes.IndexOf(n) : -1;
         }
 
         private void FillValuesWithZero()

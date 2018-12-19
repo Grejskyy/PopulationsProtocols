@@ -17,7 +17,7 @@ namespace PopulationsProtocols
         {
             var numberTest = new List<int>();
 
-            CompareToMonteCarlo(3, 10000);
+            CompareToMonteCarlo(10, 10000000);
             Console.ReadLine();
         
         }
