@@ -5,3 +5,17 @@ C:\Users\aszarnex\source\repos\PopulationsProtocols\PopulationsProtocols\bin\Deb
 C:\Users\aszarnex\source\repos\PopulationsProtocols\PopulationsProtocols\bin\Debug\PopulationsProtocols.pdb
 C:\Users\aszarnex\source\repos\PopulationsProtocols\PopulationsProtocols\obj\Debug\PopulationsProtocols.exe
 C:\Users\aszarnex\source\repos\PopulationsProtocols\PopulationsProtocols\obj\Debug\PopulationsProtocols.pdb
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\obj\Debug\PopulationsProtocols.csprojAssemblyReference.cache
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\obj\Debug\PopulationsProtocols.csproj.CoreCompileInputs.cache
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\obj\Debug\PopulationsProtocols.exe
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\obj\Debug\PopulationsProtocols.pdb
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\bin\Debug\PopulationsProtocols.exe.config
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\bin\Debug\PopulationsProtocols.exe
+C:\Users\Marcin\Desktop\PopulationsProtocols-master\PopulationsProtocols\bin\Debug\PopulationsProtocols.pdb
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\bin\Debug\PopulationsProtocols.exe.config
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\bin\Debug\PopulationsProtocols.exe
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\bin\Debug\PopulationsProtocols.pdb
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\obj\Debug\PopulationsProtocols.csprojAssemblyReference.cache
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\obj\Debug\PopulationsProtocols.csproj.CoreCompileInputs.cache
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\obj\Debug\PopulationsProtocols.exe
+C:\Users\Marcin\Documents\GitHub\PopulationsProtocols\PopulationsProtocols\obj\Debug\PopulationsProtocols.pdb

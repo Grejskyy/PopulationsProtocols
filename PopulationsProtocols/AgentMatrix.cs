@@ -28,7 +28,6 @@ namespace PopulationsProtocols
             this.matrixSize = nodes.Count();
             this.values = new double[matrixSize, matrixSize];
             this.possibilityDivider = numberOfAgents * (numberOfAgents - 1) / 2;
-
             this.FillRows();
             this.matrixOfAgents = new MyMatrix(ValuesAsObject());
             this.FillVector();
@@ -48,7 +47,6 @@ namespace PopulationsProtocols
                 result[i, left.Cols] = right[i, 0];
             }
             return result;
-        }
         public List<double> SolveGauss(bool sparse)
         {
             var tempMatrix = new MyMatrix(matrixOfAgents);
