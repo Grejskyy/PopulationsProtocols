@@ -6,7 +6,7 @@
     using System;
 
     using System.Collections.Generic;
-    
+
     #endregion
 
     class MyMatrix
@@ -25,13 +25,14 @@
         {
             _cols = cols;
             _rows = rows;
+            for (int i = 0; i < _rows * _cols; i++) _data.Add(0);
         }
 
         public MyMatrix(MyMatrix m)
         {
             _cols = m.Cols;
             _rows = m.Rows;
-            for (int i = 0; i < _rows * _cols; i++) _data.Add(m[0, i]);           
+            for (int i = 0; i < _rows * _cols; i++) _data.Add(m[0, i]);
         }
 
         #endregion
@@ -55,7 +56,25 @@
             get { return _cols; }
             set { _cols = value; }
         }
+        public bool IsZero(int x, int y)
+        {
+            return this[x, y] == 0;
+        }
 
+        public int GetSize() {
+            return _rows;
+        }
+
+        public void SwapRows(int first, int second)
+        {
+            var temp = new MyMatrix(1, _rows);
+            temp = this.GetRow(first);
+            for (int i = 0; i < this.Cols; i++)
+            {
+                this[first, i] = this[second, i];
+                this[second, i] = temp[0, i];
+            }
+        }
         public void Copy(MyMatrix m)
         {
             _rows = m.Rows;
@@ -71,6 +90,27 @@
             }
             return result;
         }
+
+        public MyMatrix GetRow(int row)
+        {
+            var result = new MyMatrix(1, _cols);
+            for (int i = 0; i < _cols; i++)
+            {
+                result[0, i] = this[row, i];
+            }
+            return result;
+        }
+
+        static public List<double> GetColumnAsList(MyMatrix m, int column)
+        {
+            List<double> result = new List<double>();
+            for (int i = 0; i < m._rows; i++)
+            {
+                result.Add(m[i, column]);
+            }
+            return result;
+        }
+
         public void addElement(double element)
         {
             _data.Add(element);
@@ -82,7 +122,7 @@
             set { _data[_cols * row + col] = value; }
         }
 
-        public List<double> Gauss()
+        public List<double> Gauss(bool sparse)
         {
             var temp = new MyMatrix(this);
             double div = 0;
@@ -104,6 +144,7 @@
                 }
                 for(int i = n+1; i < _rows; i++)
                 {
+                    if (this.IsZero(i, n) && sparse) continue;
                     div = temp[i, n] / temp[n, n];
                     for(int j = n; j < _cols; j++)
                     {
