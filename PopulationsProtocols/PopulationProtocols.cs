@@ -15,11 +15,34 @@ namespace PopulationsProtocols
         public static String MonteCarlo_Equations = "P(Y,N);Monte Carlo;Gauss;Sparse Gauss;Jacobi;Seidel";
         public void RunTest()
         {
-            var numberTest = new List<int>();
-
-            CompareToMonteCarlo(10, 10000000);
+            var AgentsTest = new List<int>();
+            var AgentMonteCarloTest = new List<int>();
+            var AllMethodsTest = new List<int>(AgentsTest);
+            var AccuracyRange = new List<double>();
+            AgentMonteCarloTest.Add(3);
+            AgentMonteCarloTest.Add(5);
+            AgentMonteCarloTest.Add(7);
+            AgentMonteCarloTest.Add(10);
+            AgentsTest.Add(3);
+            AgentsTest.Add(5);
+            AgentsTest.Add(7);
+            AgentsTest.Add(10);
+            AgentsTest.Add(15);
+            AgentsTest.Add(20);
+            AgentsTest.Add(30);
+            AgentsTest.Add(40);
+            AgentsTest.Add(50);
+            AgentsTest.Add(60);
+            AgentsTest.Add(75);
+            AgentsTest.Add(85);
+            AccuracyRange.Add(0.000001);
+            AccuracyRange.Add(0.0000000001);
+            AccuracyRange.Add(0.00000000000001);
+            MonteCarloTest(AgentMonteCarloTest);
+            CompareGaussEliminationMethod(AgentsTest);
+            CompareAllMethods(AllMethodsTest);
+            JacobiSeidelAccuracyTest(AllMethodsTest, AccuracyRange);
             Console.ReadLine();
-        
         }
         public static void Main(string[] args)
         {
