@@ -176,7 +176,7 @@
                 xvalues.Add(0);
                 temp_xvalues.Add(0);
             }
-            for (int iter = 0; iter < 2; iter++)
+            for (int iter = 0; iter < 100; iter++)
             {
                 for (int i = 0; i < _rows; i++)
                 {
@@ -202,7 +202,7 @@
             {
                 xvalues.Add(0);
             }
-            for (int iter = 0; iter < 2; iter++)
+            for (int iter = 0; iter < 100; iter++)
             {
                 for (int i = 0; i < _rows; i++)
                 {

@@ -9,6 +9,9 @@
         public static string YU_PAIR = "YU";
         public const string NU_PAIR = "NU";
         public const string YN_PAIR = "YN";
+        public const string YY_PAIR = "YY";
+        public const string NN_PAIR = "NN";
+        public const string UU_PAIR = "UU";
         #endregion
         #region Private Fields
         private int Y;
@@ -85,6 +88,7 @@
         }
         public void ChangeAgentsState(String pair)
         {
+            if (pair.Equals(YY_PAIR) || pair.Equals(NN_PAIR) || pair.Equals(UU_PAIR)) return;
             if (pair.Equals(YU_PAIR))
             {
                 U -= 1;
